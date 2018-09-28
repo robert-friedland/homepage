@@ -3,6 +3,13 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const https = require('https')
+const fs = require('fs')
+
+var options = {
+  ca: fs.readFileSync('robertfried_land.ca-bundle')
+  key: fs.readFileSync('robertfried_land.key')
+  cert: fs.readFileSync('robertfried_land.crt')
+}
 
 app.use(cors({origin: 'http://localhost:' + (process.env.PORT || 5000)}));
 
@@ -15,7 +22,7 @@ app.get('/', function(req, res){
   res.writeHead(200, {'Content-Type': 'text/plain'});
    
   // Send the response body as "Hello World"
-  res.end('Hello World\n');
+  res.end('Welcome to the jungle\n');
 })
 
 app.get('/homepage', function (req, res) {
