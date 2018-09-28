@@ -1,0 +1,90 @@
+body{
+		background-image: url("../images/dark_background.png");
+		background-size: cover;
+		overflow: hidden;
+	}
+
+	#container{
+		width: 100vw;
+		height: 100vh;
+		text-align: center;
+		color: white;
+/* 		font-family: 'Indie Flower', cursive; */
+		font-family: 'Neucha', cursive;
+		width: 100%;
+	}
+	
+	#time,#greeting{
+		width: 100%;
+	}
+
+	#time{
+		font-size: 200px;
+		position: absolute;
+		top: 20%;
+	}
+
+	#ampm-portion{
+		font-size: 36px;
+	}
+
+	#greeting{
+		font-size: 48px;
+		position: absolute;
+		top: 60%;
+	}
+
+	#weather-container{
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin-top: 4px;
+		margin-right: 20px;
+		text-align: right;
+		color: white;
+		vertical-align: top;
+	}
+
+	#icon{
+		font-size: 30px;
+		margin-right: 5px;
+		position: relative;
+		top: 0px;
+		display: inline-block;
+	}
+
+	#temp{
+		font-size: 50px;
+		height: 30px;
+		display: inline-block;
+	}
+
+	#location{
+		font-size: 25px;
+	}
+
+	#settings{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		margin: 5px;
+		font-size: 10px;
+		cursor: pointer;
+	}
+
+	#form{
+		z-index: 1;
+		position: absolute;
+		top: 20px;
+		left: 0px;
+	}
+
+	.noselect {
+ 		-webkit-touch-callout: none; /* iOS Safari */
+    		-webkit-user-select: none; /* Safari */
+     		-khtml-user-select: none; /* Konqueror HTML */
+       		-moz-user-select: none; /* Firefox */
+        	-ms-user-select: none; /* Internet Explorer/Edge */
+            	user-select: none; /* Non-prefixed version, currently
+                                  	supported by Chrome and Opera */
+	}
