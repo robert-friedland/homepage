@@ -12,10 +12,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs')
 
 app.get('/', function(req, res){
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-   
-  // Send the response body as "Hello World"
-  res.end('Welcome to the jungle\n');
+  res.render('homer_webpage')
 })
 
 app.get('/homepage', function (req, res) {
