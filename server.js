@@ -3,13 +3,6 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const https = require('https')
-const fs = require('fs')
-
-var options = {
-  ca: fs.readFileSync('robertfried_land.ca-bundle')
-  key: fs.readFileSync('robertfried_land.key')
-  cert: fs.readFileSync('robertfried_land.crt')
-}
 
 app.use(cors({origin: 'http://localhost:' + (process.env.PORT || 5000)}));
 
