@@ -65,7 +65,7 @@ function showPosition(position) {
 }
 
 function openWeatherMap(position){
-	const url = `http://localhost:5000/homepage`;
+	const url = `homepage`;
 	const data = {
 		latitude: position.coords.latitude,
 		longitude: position.coords.longitude

@@ -4,23 +4,26 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const https = require('https')
 
-app.use(cors({origin: 'http://localhost:5000'}));
+app.use(cors({origin: 'http://localhost:' + (process.env.PORT || 5000)}));
 
 app.use(bodyParser.json())
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs')
 
+app.get('/', function(req, res){
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+   
+  // Send the response body as "Hello World"
+  res.end('Hello World\n');
+})
+
 app.get('/homepage', function (req, res) {
   res.render('homepage')
 })
 
-app.get('/weather', function(req,res){
-  console.log('Hello world')
-})
-
-app.listen(5000, function () {
-  console.log('Homepage listening on port 5000!')
+app.listen(process.env.PORT || 5000, function () {
+  console.log('Homepage listening on port ' + (process.env.PORT || 5000) + '!')
 })
 
 app.post('/homepage', function (req, res, next) {
