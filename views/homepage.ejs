@@ -9,13 +9,16 @@
 	<link href="https://fonts.googleapis.com/css?family=Neucha" rel="stylesheet">
 	<link href="../styles/homepage.css" rel="stylesheet" type="text/css">
 	<script defer src="../scripts/homepage.js" type="text/javascript"></script>
+	<script defer src="../scripts/skycons.js" type="text/javascript"></script>
 </head>
 <body>
 
 	<div id="container" class="noselect">
 		<div id="settings">Settings</div>
 		<div id="weather-container">
-			<i id="icon"></i>
+			<!-- <i id="icon"></i> -->
+			<canvas id="icon" height="50px" width="50px">
+			</canvas>
 			<span id="temp"></span>
 			<div id="location"></div>
 		</div>

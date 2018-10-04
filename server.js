@@ -23,7 +23,43 @@ app.listen(process.env.PORT || 5000, function () {
   console.log('Homepage listening on port ' + (process.env.PORT || 5000) + '!')
 })
 
-app.post('/homepage', function (req, res, next) {
+app.post('/darksky', function (req, res, next){
+  const apiKey = process.env.darksky_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}?exclude=minutely,hourly,daily,alerts,flags`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/googlemap', function (req, res, next){
+  const apiKey = process.env.googlemaps_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&result_type=locality`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/openweathermap', function (req, res, next) {
   const apiKey = process.env.owm_key
   const latitude = req.body.latitude
   const longitude = req.body.longitude

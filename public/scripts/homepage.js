@@ -57,15 +57,61 @@ function updateTime(){
 
 function updateWeather() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(openWeatherMap);
+		navigator.geolocation.getCurrentPosition(darkSky);
 	}
 }
 function showPosition(position) {
 	console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
 }
 
+function darkSky(position){
+	const url = 'darksky'
+	const data = {
+		latitude: position.coords.latitude,
+		longitude: position.coords.longitude
+	}
+
+	var http = new XMLHttpRequest();
+	http.open("POST", url, true);
+	http.setRequestHeader('Content-type', 'application/json');
+
+	http.onreadystatechange = function(){
+		if(http.readyState == 4 && http.status == 200){
+			var json = JSON.parse(http.responseText)
+			console.log(json)
+			temp.innerHTML = `${Math.round(json.currently.temperature).toString()}°`
+			var skycons = new Skycons({"color": "#ffffff"})
+			skycons.set("icon", json.currently.icon)
+			skycons.play()
+			// var iconID = json.weather[0].id.toString() 
+			// if(json.weather[0].icon.slice(-1)=='n'){
+			// 	iconID += '-n'
+			// }
+			// icon.className = `owf owf-${iconID}`
+
+			// temp.innerHTML = `${Math.round(json.main.temp_min).toString()}°`
+			// loc.innerHTML = json.name
+		}
+	}
+	http.send(JSON.stringify(data));
+
+	var http2 = new XMLHttpRequest();
+	var url2 = 'googlemap'
+	http2.open("POST", url2, true);
+	http2.setRequestHeader('Content-type', 'application/json');
+
+	http2.onreadystatechange = function(){
+		if(http2.readyState == 4 && http2.status == 200){
+			var json = JSON.parse(http2.responseText)
+			console.log(json)
+			loc.innerHTML = json.results[0].address_components[0].long_name
+		}
+	}
+	http2.send(JSON.stringify(data));
+}
+
 function openWeatherMap(position){
-	const url = `homepage`;
+	const url = `openweathermap`;
 	const data = {
 		latitude: position.coords.latitude,
 		longitude: position.coords.longitude
