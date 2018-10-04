@@ -78,7 +78,7 @@ function darkSky(position){
 	http.onreadystatechange = function(){
 		if(http.readyState == 4 && http.status == 200){
 			var json = JSON.parse(http.responseText)
-			// console.log(json)
+			console.log(json)
 			temp.innerHTML = `${Math.round(json.currently.temperature).toString()}°`
 			var skycons = new Skycons({"color": "#ffffff"})
 			skycons.set("icon", json.currently.icon)
@@ -103,7 +103,7 @@ function darkSky(position){
 	http2.onreadystatechange = function(){
 		if(http2.readyState == 4 && http2.status == 200){
 			var json = JSON.parse(http2.responseText)
-			// console.log(json)
+			console.log(json)
 			loc.innerHTML = json.results[0].address_components[0].long_name
 		}
 	}
