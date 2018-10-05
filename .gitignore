@@ -4,3 +4,5 @@ robertfried_land.csr
 robertfried_land.key
 robertfried_land.crt
 robertfried_land.ca-bundle
+public/audio/wdw_today.mp3
+public/audio/silence.mp3
