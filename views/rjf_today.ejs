@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RJF Today</title>
+	<meta charset="utf-8" />
+	<!-- <link href="../images/homer-simpson-icon-256.png" rel="shortcut icon"/> -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700" rel="stylesheet">
+	<link href="../styles/rjf_today.css" rel="stylesheet" type="text/css">
+	<script defer src="https://d3js.org/d3.v5.min.js"></script>
+	<script defer src="../scripts/rjf_today.js" type="text/javascript"></script>
+	<script defer src="../scripts/skycons.js" type="text/javascript"></script>
+</head>
+<body>
+	<iframe src="../audio/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+	<audio id="player" autoplay loop>
+    	<source src="../audio/wdw_today.mp3#t=<%= Math.floor(Math.random() * Math.floor(4800)) %>" type="audio/mp3">
+	</audio>
+	
+	<% for (let img of ['MK.png', 'EP.png', 'DHS.png', 'AK.png', 'WaterParks.png', 'DisSprings.png', 'transportation.png', 'blank.png']){ %>
+	<div class="bg hidden" style="background-image: url(../images/<%= img %>)">
+	</div>
+	<% } %>
+	<div id="overlay">
+		<div id="day" class="date">Friday</div>
+		<div id="date" class="date">June 29</div>
+		<div id="time">5:53 pm</div>
+		<table id="weather">
+			<tr>
+				<td id="weather1-header" class="weather-header"></td>
+				<td id="weather2-header" class="weather-header"></td>
+			</tr>
+			<tr>
+				<td id="weather1-forecast">
+					<canvas id="weather1-icon" class="weather-icon" height="30px" width="30px"></canvas>
+					<span id="weather1-temp" class="weather-temp"></span>
+				</td>
+				<td id="weather2-forecast">
+					<canvas id="weather2-icon" class="weather-icon" height="30px" width="30px"></canvas>
+					<span id="weather2-temp" class="weather-temp"></span>
+				</td>
+			</tr>
+		</table>
+		<div id="calendar">
+			<div id="calendar-header">Upcoming</div>
+			<div id="next-event">
+				<div id="event-title"></div>
+				<div id="event-time"></div>
+			</div>
+		</div>
+	</div>
+
+	<script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</body>
+
+</html>

@@ -4,26 +4,66 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const https = require('https')
 
-app.use(cors({origin: 'http://localhost:5000'}));
+app.use(cors({origin: 'http://localhost:' + (process.env.PORT || 5000)}));
 
 app.use(bodyParser.json())
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs')
 
-app.get('/homepage', function (req, res) {
+app.get('/', function(req, res){
+  res.render('homer_webpage')
+})
+
+app.get('/homepage', function (req, res){
   res.render('homepage')
 })
 
-app.get('/weather', function(req,res){
-  console.log('Hello world')
+app.get('/rjf_today', function (req, res){
+  res.render('rjf_today')
 })
 
-app.listen(5000, function () {
-  console.log('Homepage listening on port 5000!')
+app.listen(process.env.PORT || 5000, function () {
+  console.log('Homepage listening on port ' + (process.env.PORT || 5000) + '!')
 })
 
-app.post('/homepage', function (req, res, next) {
+app.post('/darksky', function (req, res, next){
+  const apiKey = process.env.darksky_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}`//?exclude=minutely,hourly,daily,alerts,flags`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/googlemap', function (req, res, next){
+  const apiKey = process.env.googlemaps_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&result_type=locality`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/openweathermap', function (req, res, next) {
   const apiKey = process.env.owm_key
   const latitude = req.body.latitude
   const longitude = req.body.longitude
