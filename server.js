@@ -19,8 +19,8 @@ app.get('/homepage', function (req, res){
   res.render('homepage')
 })
 
-app.get('/rjf_today', function (req, res){
-  res.render('rjf_today')
+app.get('/homepage', function (req, res) {
+  res.render('homepage')
 })
 
 app.listen(process.env.PORT || 5000, function () {
@@ -31,7 +31,8 @@ app.post('/darksky', function (req, res, next){
   const apiKey = process.env.darksky_key
   const latitude = req.body.latitude
   const longitude = req.body.longitude
-  var url = `https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}`//?exclude=minutely,hourly,daily,alerts,flags`
+
+  var url = `https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}?exclude=minutely,hourly,daily,alerts,flags`
   https.get(url, (resp) => {
     let data = ''
 
