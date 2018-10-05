@@ -79,6 +79,20 @@ body{
 		left: 0px;
 	}
 
+#brian{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	height: 200px;
+}
+
+#jesus{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	height: 150px;
+}
+
 	.noselect {
  		-webkit-touch-callout: none; /* iOS Safari */
     		-webkit-user-select: none; /* Safari */
