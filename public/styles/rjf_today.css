@@ -72,6 +72,18 @@ body{
 	transform: translateX(-10000px);
 }*/
 
+#signin{
+	bottom: 10vh;
+	right: 10vw;
+	position: absolute;
+}
+
+#signout{
+	bottom: 10vh;
+	right: 2vw;
+	position: absolute;
+}
+
 table,tr,th,td{
 	/*border: 1px solid black;*/
 }

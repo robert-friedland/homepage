@@ -17,6 +17,16 @@ const weather2Temp = d3.select('#weather2-temp')
 const eventTitle = d3.select('#event-title')
 const eventTime = d3.select('#event-time')
 const backgrounds = document.getElementsByClassName('bg')
+const signin = document.getElementById('signin')
+const signout = document.getElementById('signout')
+
+signin.addEventListener('click', function(){
+	gapi.auth2.getAuthInstance().signIn()
+})
+
+signin.addEventListener('click', function(){
+	gapi.auth2.getAuthInstance().signOut()
+})
 
 setTime()
 setInterval(setTime, 1000)
