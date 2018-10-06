@@ -144,7 +144,7 @@ function darkSky(position){
 				}
 				let skycons = new Skycons({"color": "#ffffff"})
 				skycons.set('hourly-icon-' + i, hourlyForecast.icon)
-				skycons.play()
+				// skycons.play()
 
 				hourlyTemp.innerHTML = `${Math.round(hourlyForecast.temperature).toString()}°`
 				hourlyPrecip.innerHTML = `${Math.round(hourlyForecast.precipProbability * 100).toString()}%`
