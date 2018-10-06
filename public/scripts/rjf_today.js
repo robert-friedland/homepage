@@ -13,6 +13,7 @@ const backgrounds = document.getElementsByClassName('bg')
 const signin = document.getElementById('signin')
 const signout = document.getElementById('signout')
 const settings = document.getElementById('settings')
+var forecast
 
 setTime()
 setInterval(setTime, 1000)
@@ -37,9 +38,20 @@ function showSlides() {
 	for(i=0;i<backgrounds.length;i++){
 		backgrounds[i].style.left = '-100vw'
 	}
+	for (let e of document.getElementsByClassName('hourly-forecast')){
+		e.style.visibility = 'hidden'
+		e.style.opacity = 0
+	}
 
 	backgrounds[slideIndex].style.opacity = 1
 	backgrounds[slideIndex].style.left = '0vw'
+
+	if (slideIndex == 7 && forecast){
+		for (let e of document.getElementsByClassName('hourly-forecast')){
+			e.style.visibility = 'visible'
+			e.style.opacity = 1
+		}
+	}
 	
 	slideIndex++;
 	if(slideIndex > backgrounds.length - 1){
@@ -77,6 +89,7 @@ function darkSky(position){
 	http.onreadystatechange = function(){
 		if(http.readyState == 4 && http.status == 200){
 			let json = JSON.parse(http.responseText)
+			forecast = json
 			let now = new Date()
 			console.log(json)
 
@@ -116,6 +129,26 @@ function darkSky(position){
 			let skycons2 = new Skycons({"color": "#ffffff"})
 			skycons2.set("weather2-icon", weather2.icon)
 			skycons2.play()
+
+			for(let i=0; i < 6; i++){
+				let hourlyForecast = forecast.hourly.data[i]
+				let hourlyTime = document.getElementById('hourly-time-' + i)
+				let hourlyIcon = document.getElementById('hourly-icon-' + i)
+				let hourlyTemp = document.getElementById('hourly-temp-' + i)
+				let hourlyPrecip = document.getElementById('hourly-precip-' + i)
+				if (i == 0){
+					hourlyTime.innerHTML = 'Now'
+				}
+				else{
+					hourlyTime.innerHTML = new Date(hourlyForecast.time * 1000).toLocaleString('US', {hour: 'numeric'}).toLowerCase()
+				}
+				let skycons = new Skycons({"color": "#ffffff"})
+				skycons.set('hourly-icon-' + i, hourlyForecast.icon)
+				skycons.play()
+
+				hourlyTemp.innerHTML = `${Math.round(hourlyForecast.temperature).toString()}°`
+				hourlyPrecip.innerHTML = `${Math.round(hourlyForecast.precipProbability * 100).toString()}%`
+			}
 		}
 	}
 	http.send(JSON.stringify(data));
