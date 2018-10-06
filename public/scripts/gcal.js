@@ -77,6 +77,7 @@ function setUpcoming(){
 		}
 		else{
 			eventTitle.text('No more events today.')
+      eventTime.text('')
 		}
 	})
 }

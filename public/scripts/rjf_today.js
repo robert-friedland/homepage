@@ -12,6 +12,7 @@ const eventTime = d3.select('#event-time')
 const backgrounds = document.getElementsByClassName('bg')
 const signin = document.getElementById('signin')
 const signout = document.getElementById('signout')
+const settings = document.getElementById('settings')
 
 setTime()
 setInterval(setTime, 1000)
@@ -19,6 +20,17 @@ setWeather()
 setInterval(setWeather, 1000 * 60 * 60)
 var slideIndex = Math.floor(Math.random() * Math.floor(backgrounds.length - 1))
 showSlides()
+
+settings.addEventListener('click', function(){
+	if (signin.style.visibility == 'visible'){
+		signin.style.visibility = 'hidden'
+		signout.style.visibility = 'hidden'
+	}
+	else{
+		signin.style.visibility = 'visible'
+		signout.style.visibility = 'visible'
+	}
+})
 
 function showSlides() {
 	var i;

@@ -1,5 +1,5 @@
 body{
-	font-family: Roboto, sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	color: white;
 	overflow: hidden;
 }
@@ -17,6 +17,7 @@ body{
 .date{
 	font-size: 22px;
 	margin-bottom: 2%;
+	color: #7fa7e2;
 }
 
 #time{
@@ -33,6 +34,7 @@ body{
 .weather-header{
 	font-size: 22px;
 	padding: 0px;
+	color: #7fa7e2;
 }
 
 .weather-temp{
@@ -42,6 +44,7 @@ body{
 #calendar-header{
 	font-size: 22px;
 	margin-bottom: 8%;
+	color: #7fa7e2;
 }
 
 #next-event{
@@ -71,6 +74,19 @@ body{
 	display: none;
 	transform: translateX(-10000px);
 }*/
+
+#settings{
+	top: 2vh;
+	right: 2vw;
+	position: absolute;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.auth{
+	visibility: hidden;
+}
 
 #signin{
 	bottom: 10vh;
