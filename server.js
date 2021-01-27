@@ -1,48 +1,87 @@
-const Discord = require('discord.js')
-const client = new Discord.Client({
-    intents: [Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_VOICE_STATES],
-    autoReconnect: true
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const https = require('https')
+
+app.use(cors({origin: 'http://localhost:' + (process.env.PORT || 5000)}));
+
+app.use(bodyParser.json())
+app.use(express.static('public'));
+
+app.set('view engine', 'ejs')
+
+app.get('/', function(req, res){
+  res.render('homer_webpage')
 })
 
-client.once('ready', () => {
-	console.log('Ready!')
+app.get('/homepage', function (req, res){
+  res.render('homepage')
 })
 
-client.on('presenceUpdate', (oldPresence, newPresence) => {
-    // console.log(JSON.stringify(newMember))
-    userId = newPresence.userID
-    guild = newPresence.guild
-    user = guild.members.cache.get(userId).user
-    presenceStatus = newPresence.status
-    activities = newPresence.activities
-    console.log(`${user.username} is now ${presenceStatus}.`)
-    
-    for (activity of activities) {
-        console.log(`${user.username} is ${activity.type}: ${activity.name}`)
-    }
-
-    // direct to webhook
+app.get('/rjf_today', function (req, res){
+  res.render('rjf_today')
 })
 
-client.on('voiceStateUpdate', (oldState, newState) => {
-    // console.log(newState.toJSON())
-    userId = newState.id
-    guild = newState.guild
-
-    user = guild.members.cache.get(userId).user
-    // console.log(user)
-
-    channel = newState.channel
-    if (!channel) {
-        console.log(`${user.username} is not in a voice channel in ${guild.name}.`)
-        return
-    }
-
-    console.log(`${user.username} is in the ${channel.name} channel in ${guild.name}.`)
-
-    // direct to webhook
+app.get('/homepage', function (req, res) {
+  res.render('homepage')
 })
 
-client.login(process.env.BOT_TOKEN)
+app.listen(process.env.PORT || 5000, function () {
+  console.log('Homepage listening on port ' + (process.env.PORT || 5000) + '!')
+})
 
-installationUrl = `https://discord.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=bot`
+app.post('/darksky', function (req, res, next){
+  const apiKey = process.env.darksky_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+
+  var url = `https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}`//?exclude=minutely,hourly,daily,alerts,flags`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/googlemap', function (req, res, next){
+  const apiKey = process.env.googlemaps_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&result_type=locality`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
+
+app.post('/openweathermap', function (req, res, next) {
+  const apiKey = process.env.owm_key
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  var url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&APPID=${apiKey}`
+  https.get(url, (resp) => {
+    let data = ''
+
+    resp.on('data', (chunk) => {
+      data += chunk
+    })
+
+    resp.on('end', () => {
+      res.send(data)
+    })
+  })
+})
